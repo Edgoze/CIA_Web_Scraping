@@ -23,6 +23,15 @@ public class CiaParser {
         }
     }
 
+    private String addCiaGovIfNotHaveIt(String theUrl) {
+        if (!theUrl.contains("cia.gov")) {
+            theUrl = "cia.gov" + theUrl;
+        }
+        if (!theUrl.contains("https://www.")) {
+            theUrl = "https://www." + theUrl;
+        }
+        return theUrl;
+    }
 
     /*
      * Creates article map to be a mapping of article titles to url from our current doc
@@ -72,7 +81,6 @@ public class CiaParser {
             String countryInString = (String) country;
         }
 
-//        Come back home
         try {
             this.currentDoc = Jsoup.connect(this.home).get();
         } catch (Exception e) {
@@ -80,15 +88,7 @@ public class CiaParser {
         }
     }
 
-    private String addCiaGovIfNotHaveIt(String theUrl) {
-        if (!theUrl.contains("cia.gov")) {
-            theUrl = "cia.gov" + theUrl;
-        }
-        if (!theUrl.contains("https://www.")) {
-            theUrl = "https://www." + theUrl;
-        }
-        return theUrl;
-    }
+
 
     public Set<String> countryFlags(String colorOne, String colorTwo) {
         Set<String> output = new TreeSet<>();
@@ -173,7 +173,7 @@ public class CiaParser {
                 String elevInfo = pTag.text();
                 int indexWhereMeanElevInfoStarts = elevInfo.indexOf("lowest point:");
                 int indexWhereMeanElevInfoEnds = elevInfo.indexOf("m") + 1;
-//                        Sometimes the index is -1, I'm guessing sometimes there's no elevation info
+//              Sometimes the index is -1, this happens when there's no elevation info
                 if (indexWhereMeanElevInfoStarts == -1) {
                     continue;
                 }
@@ -398,7 +398,7 @@ public class CiaParser {
                         Elements pTag = divParentOfLocationDescrition.getElementsByTag("p");
                         String elevInfo = pTag.text();
                         int indexWhereMeanElevInfoStarts = elevInfo.indexOf("mean elevation:");
-//                        Sometimes the index is -1, I'm guessing sometimes there's no elevation info
+//                      Sometimes the index is -1, this happens there's no elevation info
                         if (indexWhereMeanElevInfoStarts == -1) {
                             continue;
                         }
@@ -443,7 +443,7 @@ public class CiaParser {
     }
 
     public String importPartnersThirdLargestIsland(String sea) {
-//        Not Integer to country bc, though unlikely,two countries might have same landArea
+//      Not Integer to country bc, though unlikely, two countries might have same landArea
         HashMap<String, Double> sizeToName = new HashMap<>();
         sizeToName.put("Hispaniola", 76420.0);
 
@@ -465,7 +465,7 @@ public class CiaParser {
             }
         }
         Set<String> countryNames = sizeToName.keySet();
-//                If we have less than three countries, we return null
+//      If we have less than three countries, we return null
         if (countryNames.size() < 3) {
             return null;
         }

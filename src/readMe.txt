@@ -1,24 +1,24 @@
 
+Note on missing URL parts: I have a method called addCiaGovIfNotHaveIt() that adds some parts of the URL that might be
+missing from the URL for a country.
+Note on European Union: Even though "European Union" is listed as a country in europe, I don't consider it a country
+throughout my code, so whenever I see it ignore it through 'continue'
+Note on non-available information: If the information is "NA" for something, then depending on the question,
+I either ignore the country and continue, or give 0 to the value of the information (for instance, if the population
+of a country is "NA", I assign it a value of 0).
 
-*Note that I have a method called addCiaGovIfNotHaveIt() that adds some parts of the URL that might be
-missing from the URL for a country*
-*Note that even though "European Union" is listed as a country in europe, I don't consider it a country
-throughout my code, so whenever I see it  ignore it.*
-*Note that if the information is "NA" for something, then depending on the question, I either ignore the
-country and continue, or give 0 to the value of the information (for instance, if the population of a country
-is "NA", I assign it a value of 0).*
+========================================================================================================================
 
-Assumptions:
-
-My hard-coded link is the home page of the factbook
+ASSUMPTIONS:
 
 Assumptions in getCountries() method
+-In essence, what I do in this method is populate a map from country name to its URL.
 -I'm assuming that the Country Comparisons URL will be under the card containing the words "Country Comparisons"
 -I'm assuming that the listing of countries per Area can be found by clicking the header with text "Area"
 in Country Comparisons
-    -The reason why I visit this page is because a list of all countries is there. This way, I don't need to go
-    continent by continent to get all the URLs.
--In essence, what  I do in this method is initialize a map from country name to its URL.
+-The reason why I visit this page is because a list of all countries is there. This way, I don't need to go
+continent by continent to get all the URLs.
+
 
 Assumptions in countryFlags() method, and in its helper, countryContainsColors()
 -I'm assuming that the inputs are colors, in non-capitalized characters
@@ -36,13 +36,15 @@ text "Oceans"
 -I'm assuming that the last character in the line that contains the relevant information is "m", which is reasonable
 since lowest point information is measured in meters
 
+
 Assumptions in electricityProduction() method
 -I'm assuming that continent input is formatted exactly as listed on CIA website, i.e., same capitalization, same
 spacing
 -I'm assuming that the continent listing is found under a section called The World & Its Regions in the home page
 -I'm assuming that info on electricity production is under the "Electricity - production" header.
--I'm assuming that the info is formatted as first the number of kWh, then info on whether its a trillion,
+-I'm assuming that the info is formatted as first the number of kWh, then info on whether it's a trillion,
 or a billion, or a million of them (that's why I get the elements at 0th and 1st index from the String split).
+
 
 Assumptions in largestCoastlineToLandAreaRatio() method
 -Note that if the country is "Saint Helena, Ascension, and Tristan da Cunha", I'm letting its coastline
@@ -66,6 +68,7 @@ actual value for land will be the element at index 1 of the split array, since i
 will come after "land:", which is the element at index 0
 *I noticed that sometimes there's no "land:" and "water:" breakdown. In that case, I just get the value under "total"
 
+
 Assumptions in populationAndHighestMeanElevation() method
 -I'm assuming that it is always measured in meters
 -I'm assuming that the input is a continent
@@ -75,6 +78,7 @@ spacing
 actual value of the mean elevation is the word after "elevation:". That is why I get the second element of the
 split string
 -I'm assuming that population information is under a header with text "Population"
+
 
 Assumptions in importPartnersThirdLargestIsland() method
 -I'm assuming that the input is a sea, like "Caribbean"
@@ -88,22 +92,22 @@ import partners is the first one we find in the hashmap.
 -Note that there was no specification as to how the import partners should be formatted, so I simply return the
 p.text() of the p tag under Imports - Partners.
 
+
 Assumptions in countryInSea() method
 -I'm assuming that if the country is an island in this sea, under its "location" header I will find the keywords
 "island", and the name of the sea (not necessarily in that order).
 
+
 Assumptions in landAreaOfThisCountry() method
 -Similar assumptions as those for getting area in the largestCoastlineToLandAreaRatio() method.
+
 
 Assumptions in countriesStartingWithDSortedArea() method
 -I assume that the input is a capitalized char
 -Other assumptions are similar to those in the largestCoastlineToLandAreaRatio() method.
 
- WILD CARD QUESTION:
-
- Provide a list of all countries that contain the substring "United" in their names, sorted by land boundaries
 
  Assumptions in containsSubstringOrderedByLandBoundary() method and its helper method, landBoundaryOfThisCountry()
-  -I'm assuming that info on land boundary is under the "Land boundaries" header in a country's page.
-  -I'm assuming that the landBoundary information of a country is always in between the string "total:"
+-I'm assuming that info on land boundary is under the "Land boundaries" header in a country's page.
+-I'm assuming that the landBoundary information of a country is always in between the string "total:"
   and the string "km" under the "Land Boundaries" header in a country's page.
